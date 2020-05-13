@@ -4,14 +4,22 @@
 #' @param lmObject The model to be tested
 #' @param vars A vector with the name of the linear and squared terms
 #' @param .vcov The covariance matrix to use
-#' @param  x.min Lower bound of interval
-#' @param  x.max Upper bound of interval
+#' @param  x.min Lower bound of interval. If \code{NULL}, the minimum observed in the data is used.
+#' @param  x.max Upper bound of interval. If \code{NULL}, the maximum observed in the data is used.
+#' @details The function computes slopes of a quadratic relationship at the lower  and upper bound defined by \code{x.min} and \code{x.max}. Standard errors of the
+#'   estimated slopes, t-values, and p-values from a one-sided test of a flat relationship are also provided.
+#'
+#' @examples
+#' x <- runif(100,min=-1,max=1)
+#' xsq <- x^2
+#' y <- x^2+rnorm(100)
+#' mod <- lm(y~x+xsq)
+#'
+#' uslopes(mod,c("x","xsq"))
+#' uslopes(mod,c("x","xsq"),x.max=0.8)
 
-
-
-
-USlopes <- function (lmObject, vars, .vcov = NULL, x.min = NULL, x.max = NULL) {
-  # Produce table with slopes
+#' @export
+uslopes <- function (lmObject, vars, .vcov = NULL, x.min = NULL, x.max = NULL) {
 
     ## if `.vcov` missing, use the one returned by `lm`
   if (is.null(.vcov)) .vcov <- vcov(lmObject)

@@ -1,6 +1,6 @@
 Package: utest
 Title: Implementation of the Lind/Mehlum Utest
-Version: 0.1
+Version: 0.2.0
 Authors@R: 
     person(given = "Jo Thori",
            family = "Lind",
@@ -10,8 +10,10 @@ Authors@R:
 Description: An implementation of Lind and Mehlum's (2010) Utest to test for the presence of a U shaped or inverted U shaped relationship between 
               variables in (generalized) linear models. It also implements a test of upward/downward sloping relationships at the lower and upper 
               boundary of the data range.
-License: `use_gpl3_license()` 
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
+Suggests: 
+    testthat
