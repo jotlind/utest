@@ -10,7 +10,7 @@ See Lind and Mehlum: [With or Without U? The Appropriate Test for a U‐Shaped R
 
 To install the R package from this repository (assuming `devtools` is installed)
 ```
-devtools::install_github(https://github.com/jotlind/utest)
+devtools::install_github(`https://github.com/jotlind/utest`)
 ```
 
 ## Implementation for Stata
