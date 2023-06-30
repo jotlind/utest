@@ -9,7 +9,7 @@ uslopes(lmObject, vars, .vcov = NULL, x.min = NULL, x.max = NULL)
 \arguments{
 \item{lmObject}{The model to be tested}
 
-\item{vars}{A vector with the name of the linear and squared terms}
+\item{vars}{A vector with the name of the linear and squared terms. Can also be provided as a formula}
 
 \item{.vcov}{The covariance matrix to use}
 
@@ -31,5 +31,5 @@ y <- x^2+rnorm(100)
 mod <- lm(y~x+xsq)
 
 uslopes(mod,c("x","xsq"))
-uslopes(mod,c("x","xsq"),x.max=0.8)
+uslopes(mod,~x+xsq,x.max=0.8)
 }

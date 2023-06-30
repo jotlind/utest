@@ -2,7 +2,7 @@
 #'
 #' This function estimates the slope of the relationship at the extreme points of the independent variable
 #' @param lmObject The model to be tested
-#' @param vars A vector with the name of the linear and squared terms
+#' @param vars A vector with the name of the linear and squared terms. Can also be provided as a formula
 #' @param .vcov The covariance matrix to use
 #' @param  x.min Lower bound of interval. If \code{NULL}, the minimum observed in the data is used.
 #' @param  x.max Upper bound of interval. If \code{NULL}, the maximum observed in the data is used.
@@ -16,7 +16,7 @@
 #' mod <- lm(y~x+xsq)
 #'
 #' uslopes(mod,c("x","xsq"))
-#' uslopes(mod,c("x","xsq"),x.max=0.8)
+#' uslopes(mod,~x+xsq,x.max=0.8)
 
 #' @export
 uslopes <- function (lmObject, vars, .vcov = NULL, x.min = NULL, x.max = NULL) {
@@ -25,6 +25,9 @@ uslopes <- function (lmObject, vars, .vcov = NULL, x.min = NULL, x.max = NULL) {
   if (is.null(.vcov)) .vcov <- vcov(lmObject)
   ## estimated coefficients
   beta <- coef(lmObject)
+  
+  ## Extract vector of variable names if a formula is provided
+  if (inherits(vars,"formula"))  vars <- all.vars(vars)
 
   if (is.null(x.min)) x.min <- min(lmObject$model[vars[1]])
   if (is.null(x.max)) x.max <- max(lmObject$model[vars[1]])
@@ -54,14 +57,16 @@ uslopes <- function (lmObject, vars, .vcov = NULL, x.min = NULL, x.max = NULL) {
 }
 
 
+#' @export
 print.uslopes <- function(x, ...) {
-  digits <- getOption("digits")
-  cat(" --------------------------------------------\n",
-      "           :  Lower bound \t Upper bound \n",
-      "--------------------------------------------\n",
-      "Interval   : ", formatC(x$interval[1],digits=digits),  "\t", formatC(x$interval[2],digits=digits), "\n",
-      "Slope      : ", formatC(x$slope[1],digits=digits),     "\t", formatC(x$slope[2],digits=digits), "\n",
-      "t-value    : ", formatC(x$tval[1],digits=digits),  "\t", formatC(x$tval[2],digits=digits), "\n",
-      "P>|t|      : ", formatC(x$pval[1],digits=digits),  "\t", formatC(x$pval[2],digits=digits), "\n",
-      "--------------------------------------------")
+  cat("\n Slopes at the extremes of the interval \n")
+  cat(strrep("-", 50),"\n")
+  cat(sprintf("%-17s|   %-12s  %12s\n","","Lower bound","Upper bound"))
+  cat(strrep("-", 50),"\n")
+  cat(sprintf("%-17s|   %-9f       %-9f\n","Interval",x$interval[1],x$interval[2]))
+  cat(sprintf("%-17s|   %-9f       %-9f\n","Slope",x$slope[1],x$slope[2]))
+  cat(sprintf("%-17s|   %-9f       %-9f\n","t-value",x$tval[1],x$tval[2]))
+  cat(sprintf("%-17s|   %-9f       %-9f\n","P>|t|",x$pval[1],x$pval[2]))
+  cat(strrep("-", 50),"\n")
 }
+

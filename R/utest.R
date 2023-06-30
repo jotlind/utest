@@ -2,7 +2,7 @@
 #'
 #' This function computes the Lind/Mehlum test of a U shaped relationship.
 #' @param lmObject The model to be tested
-#' @param vars A vector with the name of the linear and squared terms
+#' @param vars A vector with the name of the linear and squared terms. Can also be provided as a formula
 #' @param .vcov The covariance matrix to use
 #' @param  x.min Lower bound of interval. If \code{NULL}, the minimum observed in the data is used.
 #' @param  x.max Upper bound of interval. If \code{NULL}, the maximum observed in the data is used.
@@ -39,6 +39,9 @@ utest <- function (lmObject, vars, .vcov = NULL, x.min = NULL, x.max = NULL) {
 
   ## estimated coefficients
   beta <- coef(lmObject)
+  
+  ## Extract vector of variable names if a formula is provided
+  if (inherits(vars,"formula"))  vars <- all.vars(vars)
 
   if (beta[vars[2]]<0) {
     method <- "Test of inverted U shape"

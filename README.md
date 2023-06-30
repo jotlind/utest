@@ -36,7 +36,7 @@ utest(mod,c("x","xsq"))
 
 Get details on the slope of the relationship at the boundaries
 ```
-uslopes(mod,c("x","xsq"))
+uslopes(mod,~x+xsq)
 ```
 
 ## Authors

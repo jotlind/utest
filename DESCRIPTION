@@ -1,6 +1,6 @@
 Package: utest
 Title: Implementation of the Lind/Mehlum Utest
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: 
     person(given = "Jo Thori",
            family = "Lind",
@@ -14,6 +14,6 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.3
 Suggests: 
     testthat
